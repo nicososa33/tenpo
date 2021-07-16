@@ -1,0 +1,45 @@
+version: "3.8"
+
+services: 
+    postgres:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: postgres
+        restart: always
+        environment: 
+            POSTGRES_USERNAME: "docker"
+            POSTGRES_PASSWORD: "docker"
+            PGDATA: /var/lib/postgresql/data/pgdata
+        ports: 
+            - "5432:5432"
+        volumes:
+            - pgdata:/var/lib/postgresql/data/
+            #- "/c/DB:/dodker-entrypoint-initdb.d"
+        networks: 
+            - tenpo_network
+            #postgres_network:
+                #aliases: 
+                    #- postgres_host
+    pgadmin:
+        image: dpage/pgadmin4
+        restart: always
+        environment: 
+            PGADMIN_DEFAULT_EMAIL: nicososa33@gmail.com
+            PGADMIN_DEFAULT_PASSWORD: 123456
+        ports: 
+            - "5555:80"
+        volumes: 
+            - "C:\\C\\DB:/var/lib/"
+        networks: 
+            - tenpo_network 
+volumes: 
+    pgdata: {}
+    
+networks: 
+    tenpo_network:
+    #postgres_network:
+    #    name: postgres_net
+        driver: bridge
+
+
