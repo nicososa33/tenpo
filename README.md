@@ -1,2 +1,2 @@
-# tempo
+# tenpo
 test
